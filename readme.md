@@ -2,6 +2,4 @@
 
 A game of strategy, speed, and fortitude.
 
-Matt Damon or Marky Mark.
-
-![](https://github.com/github/mattormark/blob/master/images/mattormark.png
+![](https://github.com/seanewest/mattmark/blob/master/mattormark.png)
