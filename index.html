@@ -92,6 +92,7 @@ function switchPic() {
   var coinflip = /*50/50*/ Math.random() > 0.5
   ismatt = coinflip
   var newpic = ismatt ? randomElt(matts) : randomElt(marks)
+  newpic = "img/" + newpic;
   $image = $('#image')
   $image.attr('src', newpic)
 }
