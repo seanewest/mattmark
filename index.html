@@ -1,0 +1,152 @@
+<html>
+<head>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//minicade.herokuapp.com/tinygame.js"></script>
+<link rel="stylesheet" href="https://httpsify.herokuapp.com/toolness.github.io/fancy-friday/example/c64-pixelized.css">
+<style>
+
+
+body {
+  text-align:center;
+  background-color:#faccce;
+}
+
+#container {
+  margin: 0 auto;
+  background-color:rgb(254, 158, 225);;
+  width: 700px;
+  height: 500px;
+}
+
+.win {
+  background-color: #00ff00;
+}
+
+.lose {
+  background-color: #ff0000;
+}
+
+.instructions {
+  font-family: 'Commodore 64 Pixelized', monospace;
+  font-weight: normal;
+  font-size: 32px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+</style>
+</head>
+
+<title>Matt Damon or Marky Mark?</title>
+<body>
+
+<br>
+  <div class="instructions">Left Arrow for Marky Mark</div>
+
+
+<div id='container'>
+  <img id='image' style="max-height: 500px; max-width: 300px;">
+</div>
+
+
+  <div class="instructions">Right Arrow for Matt Damon</div>
+
+<script>
+var marks = [
+"mark1.jpg",
+"mark10.jpg",
+"mark11.jpg",
+"mark2.jpg",
+"mark4.jpg",
+"mark5.jpg",
+"mark6.jpg",
+"mark7.jpg",
+"mark8.jpg",
+"mark9.jpg"
+]
+
+var matts = [
+"matt1.jpg",
+"matt11.jpg",
+"matt12.jpg",
+"matt14.jpg",
+"matt15.jpg",
+"matt2.jpg",
+"matt3.jpg",
+"matt4.jpg",
+"matt6.jpg",
+"matt7.jpg",
+"matt8.jpg"
+];
+
+var ismatt = false;
+var done = false;
+
+
+function randomElt(arr) {
+  var i = Math.floor(Math.random() * arr.length);
+  return arr[i];
+}
+
+function switchPic() {
+  var coinflip = /*50/50*/ Math.random() > 0.5
+  ismatt = coinflip
+  var newpic = ismatt ? randomElt(matts) : randomElt(marks)
+  $image = $('#image')
+  $image.attr('src', newpic)
+}
+
+Tinygame.onplay = function() {
+  // Start accepting user input, animating sprites, etc...
+  console.log("Game started!");
+  init();
+  document.onkeydown = processKey;
+  done = false;
+};
+
+Tinygame.onoutoftime = function() {
+  // Stop accepting user input, show ending animation, etc...
+  console.log("Player ran out of time!");
+  done = true;
+};
+
+function init() {
+  switchPic()
+}
+
+function win() {
+  $('body').addClass('win');
+  $('.instructions').text('Yes! Yes Yes!');
+  Tinygame.win();
+}
+
+function lose() {
+  $('body').addClass('lose');
+  $('.instructions').text('Wrong! No! Wrong!');
+  done = true;
+}
+
+function outoftime() {
+  $('body').addClass('lose');
+  $('.instructions').text('Out of time!');
+  done = true;
+}
+
+function processKey() {
+  if (done) return;
+
+  var key = event.keyCode
+  if (key == 39 || key == 37) {
+    console.log('keu')
+    if (ismatt && key == 39 || !ismatt && key == 37) {
+      $('#result').html('correct')
+      win();
+    } else {
+      lose();
+    }
+  }
+}
+
+</script>
+</body>
+</html>
